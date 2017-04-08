@@ -62,7 +62,7 @@ class Moneta
 	if (isset($_POST['faccia'])) {
 		if ($_POST['faccia'] != -1) {
 			$moneta = new Moneta();
-			$moneta->gioca(false);
+			$moneta->gioca($_POST['faccia']);
 			$punteggio = $moneta->getPunteggio();
 			if ($punteggio <= 0) {
 				echo "hai perso";
