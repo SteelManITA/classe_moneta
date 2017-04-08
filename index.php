@@ -8,13 +8,12 @@ class Moneta
 		return rand(0,1) == 1;
 	}
 
-	private function getPunteggio($tiri) {
+	function getPunteggio(){
+		return $this->score;
+	}
+
+	private function updateScore($tiri) {
 		$this->score = $this->score - (($tiri-2) * 10);
-		if ($this->score <= 0) {
-			return "hai perso";
-		} else {
-			return "Hai totalizzato " . $this->score . " punti";
-		}
 	}
 
 	function gioca($faccia) {
@@ -24,8 +23,7 @@ class Moneta
 			$consecutivi = ($faccia === $this->lancia()) ? ++$consecutivi : $consecutivi=0;
 			++$count;
 		} while ($consecutivi < 2);
-
-		return $this->getPunteggio($count);
+		$this->updateScore($count);
 	}
 
 	function __construct() {
@@ -64,7 +62,13 @@ class Moneta
 	if (isset($_POST['faccia'])) {
 		if ($_POST['faccia'] != -1) {
 			$moneta = new Moneta();
-			echo $moneta->gioca(false);
+			$moneta->gioca(false);
+			$punteggio = $moneta->getPunteggio();
+			if ($punteggio <= 0) {
+				echo "hai perso";
+			} else {
+				echo "Hai totalizzato " . $punteggio . " punti";
+			}
 		}
 	}
 	?>
