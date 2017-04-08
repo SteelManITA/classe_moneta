@@ -8,7 +8,7 @@ class Moneta
 		return rand(0,1) == 1;
 	}
 
-	function getPunteggio($tiri) {
+	private function getPunteggio($tiri) {
 		$this->score = $this->score - (($tiri-2) * 10);
 		if ($this->score <= 0) {
 			return "hai perso";
